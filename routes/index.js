@@ -53,7 +53,7 @@ router.get('/', (req, res) => {
 
 router.get('/client_token', (req, res) => {
   gateway.clientToken.generate({}).then(({ clientToken }) => {
-    res.render('/client_token', {
+    res.render('client_token', {
       clientToken,
     });
   });
