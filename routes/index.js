@@ -51,6 +51,14 @@ router.get('/', (req, res) => {
   res.redirect('/checkouts/new');
 });
 
+router.get('/client_token', (req, res) => {
+  gateway.clientToken.generate({}).then(({ clientToken }) => {
+    res.render('/client_token', {
+      clientToken,
+    });
+  });
+});
+
 router.get('/checkouts/new', (req, res) => {
   gateway.clientToken.generate({}).then(({ clientToken }) => {
     res.render('checkouts/new', {
@@ -70,15 +78,6 @@ router.get('/checkouts/:id', (req, res) => {
   });
 });
 
-router.get('/client_token', (req, res) => {
-
-	gateway.clientToken.generate({
-	  customerId: aCustomerId
-	}, function (err, response) {
-  		res.send(response.clientToken)
-	});
-
-});
 
 
 router.post('/checkouts', (req, res) => {
