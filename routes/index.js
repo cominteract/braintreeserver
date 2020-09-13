@@ -92,7 +92,6 @@ router.post('/post_checkout_transact', function(req, res) {
 
   var newTransaction = gateway.transaction.sale({
     amount: req.body.amount,
-    options: options,
     deviceData: deviceData,
     customer: customer,
     paymentMethodNonce: nonceFromTheClient,
