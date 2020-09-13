@@ -77,6 +77,64 @@ router.get('/checkouts/:id', (req, res) => {
 });
 
 
+
+router.post('/post_checkout_transact', function(req, res) {
+  // Use the payment method nonce here
+  var nonceFromTheClient = req.body.paymentMethodNonce;
+  // Create customer details
+  var customer = req.body.customer
+
+  var deviceData = req.body.deviceData
+
+  var shipping = req.body.shipping
+
+  var billing = req.body.billing
+
+  var newTransaction = gateway.transaction.sale({
+    amount: req.body.amount,
+    options: options,
+    deviceData: deviceData,
+    customer: customer,
+    paymentMethodNonce: nonceFromTheClient,
+    options: {
+      // This option requests the funds from the transaction
+      // once it has been authorized successfully
+      submitForSettlement: true
+    }
+  }, function(error, result) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(error);
+      }
+  });
+});
+
+
+router.post('/create_customer', function(req, res) {
+  var merchantAccountParams = req.body  
+  gateway.merchantAccount.create(merchantAccountParams, function (err, result) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(error);
+      }
+  });
+});
+
+
+router.post('/create_merchant', function(req, res) {
+  var customerParams = req.body  
+  gateway.customer.create(customerParams, function (err, result) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(error);
+      }
+  });
+});
+
+
 router.post('/post_checkout', function(req, res) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.paymentMethodNonce;
