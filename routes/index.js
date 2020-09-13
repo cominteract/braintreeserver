@@ -77,6 +77,27 @@ router.get('/checkouts/:id', (req, res) => {
 });
 
 
+router.post('/post_checkout', function(req, res) {
+  // Use the payment method nonce here
+  var nonceFromTheClient = req.body.paymentMethodNonce;
+  // Create a new transaction for $10
+  var newTransaction = gateway.transaction.sale({
+    amount: req.body.amount,
+    paymentMethodNonce: nonceFromTheClient,
+    options: {
+      // This option requests the funds from the transaction
+      // once it has been authorized successfully
+      submitForSettlement: true
+    }
+  }, function(error, result) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(error);
+      }
+  });
+});
+
 
 router.post('/checkouts', (req, res) => {
   // In production you should not take amounts directly from clients
