@@ -161,24 +161,17 @@ router.post('/create_merchant', function(req, res) {
   id: "blue_ladders_store"
 };
 
-gateway.merchantAccount.create(merchantAccountParams, (err, result) => {
+  gateway.merchantAccount.create(merchantAccountParams, (err, result) => {
       if (result) {
         res.send(result);
       } else {
         res.status(500).send(err);
       }
+  });
 });
 
 
-  // var merchantAccountParams = req.body  
-  // gateway.merchantAccount.create({business : merchantAccountParams.business,individual : merchantAccountParams.individual, masterMerchantAccountId : "klein"}, function (err, result) {
-  //     if (result) {
-  //       res.send(result);
-  //     } else {
-  //       res.status(500).send(err);
-  //     }
-  // });
-});
+
 
 router.post('/all_customers', function(req, res) {
   gateway.customer.search((search) => {
