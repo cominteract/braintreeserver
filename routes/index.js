@@ -122,7 +122,7 @@ router.post('/all_merchants', function(req, res) {
 
 router.post('/create_merchant', function(req, res) {
   var merchantAccountParams = req.body  
-  gateway.merchantAccount.create(merchantAccountParams, function (err, result) {
+  gateway.merchantAccount.create({merchantAccount : merchantAccountParams, masterMerchantAccountId : "klein"}, function (err, result) {
       if (result) {
         res.send(result);
       } else {
