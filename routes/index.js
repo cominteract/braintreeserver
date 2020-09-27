@@ -110,25 +110,44 @@ router.post('/post_checkout_transact', function(req, res) {
 });
 
 
-router.post('/create_customer', function(req, res) {
+router.post('/all_merchants', function(req, res) {
+  gateway.merchantAccount.all((err, result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(err);
+      }
+  });  
+});
+
+router.post('/create_merchant', function(req, res) {
   var merchantAccountParams = req.body  
   gateway.merchantAccount.create(merchantAccountParams, function (err, result) {
       if (result) {
         res.send(result);
       } else {
-        res.status(500).send(error);
+        res.status(500).send(err);
       }
   });
 });
 
+router.post('/all_customers', function(req, res) {
+  gateway.customer.all((err, result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(500).send(err);
+      }
+  });  
+});
 
-router.post('/create_merchant', function(req, res) {
+router.post('/create_customer', function(req, res) {
   var customerParams = req.body  
   gateway.customer.create(customerParams, function (err, result) {
       if (result) {
         res.send(result);
       } else {
-        res.status(500).send(error);
+        res.status(500).send(err);
       }
   });
 });
