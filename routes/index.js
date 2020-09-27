@@ -122,7 +122,7 @@ router.post('/all_merchants', function(req, res) {
 
 router.post('/create_merchant', function(req, res) {
 
-  const merchantAccountParams = {
+  var merchantAccountParams = {
   individual: {
     firstName: "Jane",
     lastName: "Doe",
