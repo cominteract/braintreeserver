@@ -150,7 +150,6 @@ router.post('/create_merchant', function(req, res) {
   },
   funding: {
     descriptor: "Blue Ladders",
-    destination: braintree.MerchantAccount.FundingDestination.Bank,
     email: "funding@blueladders.com",
     mobilePhone: "5555555555",
     accountNumber: "1123581321",
