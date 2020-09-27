@@ -132,13 +132,15 @@ router.post('/create_merchant', function(req, res) {
 });
 
 router.post('/all_customers', function(req, res) {
-  gateway.customer.all((err, result) => {
-      if (result) {
-        res.send(result);
-      } else {
-        res.status(500).send(err);
-      }
-  });  
+  gateway.customer.search((search) => {
+      search.id().is("the_customer_id");
+    }, (err, result) => {
+        if (result) {
+          res.send(result);
+        } else {
+          res.status(500).send(err);
+        }
+  });
 });
 
 router.post('/create_customer', function(req, res) {
